@@ -1,0 +1,304 @@
+:root {
+  --primary-color: #6C63FF;
+  --secondary-color: #4CAF50;
+  --background-color: #0F0F1E;
+  --card-background: rgba(255, 255, 255, 0.05);
+  --text-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+.results-container {
+  min-height: 100vh;
+  padding: calc(var(--navbar-height) + 60px) 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+}
+
+.results-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(108, 99, 255, 0.5) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(76, 175, 80, 0.5) 0%, transparent 30%);
+  filter: blur(100px);
+  z-index: -1;
+}
+
+.results-title {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: bold;
+  margin-bottom: 40px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.loading, .error, .no-votes-message, .single-candidate-message {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: var(--text-color);
+  margin: 20px 0;
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  animation: fadeIn 1s ease-out;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+.candidates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.candidate-card {
+  background-color: var(--card-background);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.candidate-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px var(--shadow-color);
+}
+
+.candidate-rank {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.candidate-image-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.candidate-image, .candidate-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.candidate-icon {
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  color: white;
+}
+
+.winner-icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 40px;
+  color: gold;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+.candidate-name {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.vote-info {
+  margin-bottom: 15px;
+}
+
+.vote-count {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.vote-label {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-left: 5px;
+}
+
+.vote-percentage-wrapper {
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.vote-percentage-bar {
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  transition: width 1s ease-out;
+}
+
+.vote-percentage-text {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.winner-card {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(108, 99, 255, 0.2));
+  border: 2px solid var(--secondary-color);
+  overflow: hidden;
+}
+
+.winner-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.trophy {
+  position: absolute;
+  font-size: 40px;
+  color: gold;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+.trophy.left {
+  top: 20px;
+  left: 20px;
+  transform: rotate(-30deg);
+}
+
+.trophy.right {
+  bottom: 20px;
+  right: 20px;
+  transform: rotate(30deg);
+}
+
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f0f0f0;
+  animation: confetti-fall 3s linear infinite;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100%) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Generate different colors and delays for confetti */
+.confetti:nth-child(2n) {
+  background-color: var(--primary-color);
+}
+.confetti:nth-child(3n) {
+  background-color: var(--secondary-color);
+}
+.confetti:nth-child(4n) {
+  background-color: #FFD700;
+}
+.confetti:nth-child(5n) {
+  background-color: #FF69B4;
+}
+
+/* Add different delays and positions */
+@for $i from 1 through 20 {
+  .confetti:nth-child(#{$i}) {
+    left: #{random(100)}%;
+    animation-delay: -#{random(3)}s;
+    animation-duration: #{2 + random(2)}s;
+  }
+}
+
+.winner-card .candidate-image-wrapper::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(circle, rgba(255,215,0,0.5) 0%, rgba(255,215,0,0) 70%);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media screen and (max-width: 768px) {
+  .candidates-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .candidates-grid {
+    grid-template-columns: 1fr;
+  }
+}

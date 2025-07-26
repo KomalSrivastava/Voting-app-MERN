@@ -1,0 +1,204 @@
+:root {
+  --primary-color: #6C63FF;
+  --secondary-color: #4CAF50;
+  --background-color: #0F0F1E;
+  --card-background: rgba(255, 255, 255, 0.05);
+  --text-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+.candidates-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: var(--background-color);
+  border: 1px solid var(--card-background);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  margin-top: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.candidates-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(108, 99, 255, 0.5) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(76, 175, 80, 0.5) 0%, transparent 30%);
+  filter: blur(100px);
+  z-index: -1;
+}
+
+.candidate-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: bold;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px var(--shadow-color);
+  text-align: center;
+  margin-top: 40px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.candidate-login-message {
+  font-size: 18px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  opacity: 0.9;
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.candidate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  perspective: 1000px;
+}
+
+.candidate-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--card-background);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  animation: fadeInUp 1s ease-out;
+}
+
+.candidate-card:hover {
+  transform: rotateY(5deg) rotateX(5deg);
+}
+
+.candidate-card__image-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.candidate-card__image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+.candidate-card:hover .candidate-card__image {
+  transform: scale(1.1);
+}
+
+.candidate-card__content {
+  padding: 20px;
+}
+
+.candidate-card__name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: var(--text-color);
+}
+
+.candidate-card__info {
+  font-size: 16px;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.candidate-card__info p {
+  margin-bottom: 10px;
+}
+
+.candidate-card__votes {
+  font-size: 16px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.candidate-card__vote-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.candidate-card__vote-btn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+  z-index: -1;
+  filter: blur(5px);
+  background-size: 400%;
+  animation: glowing 20s linear infinite;
+}
+
+.candidate-card__vote-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* Responsive design */
+
+@media (max-width: 768px) {
+  .candidate-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .candidate-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .candidate-card {
+    padding: 10px;
+  }
+  .candidate-card__image {
+    width: 80px;
+    height: 80px;
+  }
+}
