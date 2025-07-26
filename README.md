@@ -24,13 +24,3 @@ Whether you're a voter or an admin, the app ensures a seamless and trusted exper
 |----------|---------|------------|----------|-------|
 | React.js | Node.js + Express | Solidity (Ethereum) | MongoDB | Web3.js, Ethers.js, Tailwind CSS, Hardhat |
 
----
-
-## 🖼️ Screenshots
-
-> *(Coming Soon)* – I'll be adding some screenshots to showcase the UI and features.
-
----
-
-## 📁 Folder Structure
-
